@@ -1,25 +1,8 @@
 
-@extends('layouts.app')
+@extends('layouts.home')
 
-@section('content')
+@section('main')
 <div class="financial-calculator-container">
-    <!-- Header Section -->
-    <div class="header-section bg-primary text-white p-4">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h1 class="fw-bold mb-0">ViGamer.com</h1>
-                    <p class="mb-0">Financial Calculator Hub</p>
-                </div>
-                <div class="navigation">
-                    <a href="#" class="text-white me-3">Home</a>
-                    <a href="#" class="text-white me-3">About</a>
-                    <a href="#" class="text-white">Contact</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Financial Calculators Section -->
     <div class="calculator-section py-4">
         <div class="container">
