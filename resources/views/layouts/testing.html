@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>401(k) Retirement Gap Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f8fc;
+      padding: 20px;
+    }
+    .calculator {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #2c3e50;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #34495e;
+    }
+    .result {
+      margin-top: 20px;
+      background: #ecf0f1;
+      padding: 20px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>401(k) Retirement Gap Calculator</h2>
+
+    <label for="currentAge">Current Age</label>
+    <input type="number" id="currentAge" min="0" required>
+
+    <label for="retirementAge">Retirement Age</label>
+    <input type="number" id="retirementAge" min="0" required>
+
+    <label for="currentSavings">Current Savings ($)</label>
+    <input type="number" id="currentSavings" min="0" required>
+
+    <label for="annualContribution">Annual Contribution ($)</label>
+    <input type="number" id="annualContribution" min="0" required>
+
+    <label for="expectedReturn">Expected Annual Return (%)</label>
+    <input type="number" id="expectedReturn" step="0.1" min="0" required>
+
+    <label for="retirementGoal">Retirement Goal ($)</label>
+    <input type="number" id="retirementGoal" min="0" required>
+
+    <button onclick="calculateGap()">Calculate Gap</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateGap() {
+      const currentAge = parseInt(document.getElementById('currentAge').value);
+      const retirementAge = parseInt(document.getElementById('retirementAge').value);
+      const currentSavings = parseFloat(document.getElementById('currentSavings').value);
+      const annualContribution = parseFloat(document.getElementById('annualContribution').value);
+      const expectedReturn = parseFloat(document.getElementById('expectedReturn').value) / 100;
+      const retirementGoal = parseFloat(document.getElementById('retirementGoal').value);
+
+      const years = retirementAge - currentAge;
+
+      if (years <= 0) {
+        document.getElementById('result').innerHTML = `<p style="color: red;">Please ensure retirement age is greater than current age.</p>`;
+        return;
+      }
+
+      let futureValue = currentSavings;
+      for (let i = 0; i < years; i++) {
+        futureValue = (futureValue + annualContribution) * (1 + expectedReturn);
+      }
+
+      const gap = retirementGoal - futureValue;
+      const resultEl = document.getElementById('result');
+
+      resultEl.innerHTML = `
+        <p><strong>Future Savings at Retirement:</strong> $${futureValue.toFixed(2)}</p>
+        ${gap > 0 
+          ? `<p style="color: red;"><strong>Retirement Gap:</strong> You need $${gap.toFixed(2)} more to reach your goal.</p>` 
+          : `<p style="color: green;"><strong>Great!</strong> You're projected to exceed your goal by $${Math.abs(gap).toFixed(2)}.</p>`}
+      `;
+    }
+  </script>
+
+</body>
+</html>

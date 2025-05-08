@@ -2,361 +2,373 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ViGamer.com - Financial Calculator Hub</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Financial Calculators</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        .calculator-card {
-            transition: all 0.3s ease;
+        :root {
+            --primary-color: #3f72af;
+            --secondary-color: #112d4e;
+            --accent-color: #4e9af1;
+            --light-bg: #f9fafc;
+            --border-color: #e7e9ef;
         }
-        .calculator-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+        }
+        
+        .sidebar {
+            min-height: 100vh;
+            background: white;
+            padding: 1.5rem;
+            border-right: 1px solid var(--border-color);
+            box-shadow: 0 0 20px rgba(0,0,0,0.03);
+        }
+        
+        .sidebar .brand {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .sidebar .menu-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar .nav-link {
+            color: #495057;
+            padding: 0.6rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            margin: 0.15rem 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            font-size: 0.85rem;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: rgba(63, 114, 175, 0.08);
+            color: var(--primary-color);
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .calculator-header {
+            background: white;
+            border-radius: 10px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        
+        .calculator-header h4 {
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+        
+        .calculator-header p {
+            color: #6c757d;
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+        
+        .calculator-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.75rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        
+        .calculator-card h5 {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .nav-tabs {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .nav-tabs .nav-link {
+            color: #6c757d;
+            border: none;
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            color: var(--primary-color);
+            border-color: transparent;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            background-color: transparent;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 6px rgba(63, 114, 175, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.25rem rgba(63, 114, 175, 0.15);
+        }
+        
+        .results-card {
+            background-color: #f8faff;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .footer {
+            font-size: 0.85rem;
+            color: #6c757d;
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <header class="bg-blue-800 text-white shadow-lg">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h1 class="text-3xl font-bold">ViGamer.com</h1>
-                    <p class="text-blue-200">Financial Calculator Hub</p>
-                </div>
-                <nav>
-                    <ul class="flex space-x-6">
-                        <li><a href="/" class="text-white hover:text-blue-200">Home</a></li>
-                        <li><a href="#" class="text-white hover:text-blue-200">About</a></li>
-                        <li><a href="#" class="text-white hover:text-blue-200">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
+<body>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar col-md-3 col-xl-2">
+        <div class="brand">
+            <i class="fas fa-calculator me-2"></i> Financial Tools
         </div>
-    </header>
 
-    <main class="container mx-auto px-4 py-8">
-        <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-6">Financial Calculators</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="calculator-grid">
-                <!-- Calculator cards will be dynamically inserted here -->
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between">
-                <div class="mb-6 md:mb-0">
-                    <h3 class="text-xl font-bold mb-4">ViGamer.com</h3>
-                    <p>Your one-stop financial calculator resource</p>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="/" class="text-blue-300 hover:text-white">Home</a></li>
-                        <li><a href="#" class="text-blue-300 hover:text-white">About Us</a></li>
-                        <li><a href="#" class="text-blue-300 hover:text-white">Contact</a></li>
-                        <li><a href="#" class="text-blue-300 hover:text-white">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-8 pt-8 border-t border-gray-700 text-center">
-                <p>&copy; 2025 ViGamer.com - All rights reserved</p>
-            </div>
+        <div class="menu-title">
+            <i class="fas fa-landmark me-1"></i> Loans & Mortgage
         </div>
-    </footer>
+        <a class="nav-link" href="{{ route('ira.form') }}">
+            <i class="fas fa-piggy-bank"></i> IRA vs Roth
+        </a>
+        <a class="nav-link" href="{{ route('dti.form') }}">
+            <i class="fas fa-percentage"></i> DTI Ratio
+        </a>
+        <a class="nav-link" href="{{ route('student.refi.form') }}">
+            <i class="fas fa-graduation-cap"></i> Student Refinance
+        </a>
+        <a class="nav-link" href="{{ route('rentvsbuy.form') }}">
+            <i class="fas fa-home"></i> Rent vs Buy
+        </a>
+        <a class="nav-link" href="{{ route('home.affordability.form') }}">
+            <i class="fas fa-house-user"></i> Home Affordability
+        </a>
+        <a class="nav-link" href="{{ route('auto.form') }}">
+            <i class="fas fa-car"></i> Auto Insurance
+        </a>
 
-    <script>
-        // Mock data for calculators - this would be fetched from the backend
-        const calculators = [
-            {
-                id: 1,
-                slug: "mortgage-payment",
-                name: "Mortgage Payment",
-                description: "Show homeowners what their mortgage costs per month.",
-                icon: "fas fa-home",
-                color: "blue",
-                route: "{{ route('mortgage-payment') }}"
-            },
-            {
-                id: 2,
-                slug: "refinance-savings",
-                name: "Mortgage Refinance Savings",
-                description: "Helps decide if refinancing is worth it.",
-                icon: "fas fa-dollar-sign",
-                color: "green",
-                route: "{{ route('refinance-savings') }}"
-            },
-            {
-                id: 3,
-                slug: "auto-loan",
-                name: "Auto-Loan Payment",
-                description: "Forecast car loan costs.",
-                icon: "fas fa-car",
-                color: "red",
-               
-            },
-            {
-                id: 4,
-                slug: "personal-loan-apr",
-                name: "Personal-Loan APR",
-                description: "Reveals effective cost of unsecured loans.",
-                icon: "fas fa-percentage",
-                color: "purple",
-                
-            },
-            {
-                id: 5,
-                slug: "credit-payoff",
-                name: "Credit-Card Payoff",
-                description: "Show timeline to clear credit debt.",
-                icon: "fas fa-credit-card",
-                color: "yellow",
-                
-            },
-            {
-                id: 6,
-                slug: "compound-growth",
-                name: "Compound-Interest",
-                description: "Visualise investment growth.",
-                icon: "fas fa-chart-line",
-                color: "indigo",
-                
-            },
-            {
-                id: 7,
-                slug: "retirement-gap",
-                name: "401k Retirement Gap",
-                description: "Shows if savings meet retirement goal.",
-                icon: "fas fa-umbrella-beach",
-                color: "teal",
-                
-            },
-            {
-                id: 8,
-                slug: "salary-hourly",
-                name: "Salary ↔ Hourly",
-                description: "Convert pay formats with deductions.",
-                icon: "fas fa-exchange-alt",
-                color: "orange",
-                
-            },
-            {
-                id: 9,
-                slug: "tax-estimator",
-                name: "Income-Tax Estimator (US/CA)",
-                description: "Quick federal + state income-tax preview.",
-                icon: "fas fa-file-invoice-dollar",
-                color: "pink",
-                
-            },
-            {
-                id: 10,
-                slug: "auto-insurance-premium",
-                name: "Auto-Insurance Premium",
-                description: "Rough quote for car insurance.",
-                icon: "fas fa-shield-alt",
-                color: "blue",
-                
-            },
-            {
-                id: 11,
-                slug: "life-insurance-needs",
-                name: "Life-Insurance Needs",
-                description: "Calculates optimal life-policy size.",
-                icon: "fas fa-heartbeat",
-                color: "red",
-                
-            },
-            {
-                id: 12,
-                slug: "hsa-vs-ppo",
-                name: "HSA vs PPO Break-Even",
-                description: "Decide between health plans.",
-                icon: "fas fa-hospital",
-                color: "green",
-                
-            },
-            {
-                id: 13,
-                slug: "student-refi",
-                name: "Student-Loan Refinance",
-                description: "Check benefit of refinancing student debt.",
-                icon: "fas fa-graduation-cap",
-                color: "indigo",
-               
-            },
-            {
-                id: 14,
-                slug: "home-affordability",
-                name: "Home Affordability",
-                description: "Shows buyers their budget ceiling.",
-                icon: "fas fa-home",
-                color: "purple",
-                
-            },
-            {
-                id: 15,
-                slug: "rent-vs-buy",
-                name: "Rent vs Buy",
-                description: "Compare renting to owning.",
-                icon: "fas fa-balance-scale",
-                color: "yellow",
-                
-            },
-            {
-                id: 16,
-                slug: "currency-converter",
-                name: "Live Currency Converter",
-                description: "Real-time FX via open API.",
-                icon: "fas fa-globe",
-                color: "teal",
-               
-            },
-            {
-                id: 17,
-                slug: "net-worth",
-                name: "Net-Worth Tracker",
-                description: "One-page balance-sheet calculator.",
-                icon: "fas fa-chart-pie",
-                color: "orange",
-                
-            },
-            {
-                id: 18,
-                slug: "solar-roi",
-                name: "Solar Panel ROI",
-                description: "Estimate savings from rooftop solar.",
-                icon: "fas fa-solar-panel",
-                color: "green",
-                
-            },
-            {
-                id: 19,
-                slug: "dti-ratio",
-                name: "Debt-to-Income Ratio",
-                description: "Key metric for loan pre-qualification.",
-                icon: "fas fa-balance-scale-left",
-                color: "red",
-                
-            },
-            {
-                id: 20,
-                slug: "ira-roth",
-                name: "IRA vs Roth IRA",
-                description: "Determine better retirement account type.",
-                icon: "fas fa-piggy-bank",
-                color: "blue",
-               
-            }
-        ];
+        <div class="menu-title">
+            <i class="fas fa-shield-alt me-1"></i> Insurance & Tax
+        </div>
+        <a class="nav-link" href="{{ route('life.form') }}">
+            <i class="fas fa-heartbeat"></i> Life Insurance
+        </a>
+        <a class="nav-link active" href="{{ route('tax.form') }}">
+            <i class="fas fa-file-invoice-dollar"></i> Tax Estimator
+        </a>
+        <a class="nav-link" href="{{ route('hsa.form') }}">
+            <i class="fas fa-notes-medical"></i> HSA vs PPO
+        </a>
 
-        // Function to get color classes based on the color name
-        function getColorClasses(color) {
-            const colorMap = {
-                blue: {
-                    bg: "bg-blue-100",
-                    border: "border-blue-500",
-                    text: "text-blue-700",
-                    icon: "text-blue-500"
-                },
-                green: {
-                    bg: "bg-green-100",
-                    border: "border-green-500",
-                    text: "text-green-700",
-                    icon: "text-green-500"
-                },
-                red: {
-                    bg: "bg-red-100",
-                    border: "border-red-500",
-                    text: "text-red-700",
-                    icon: "text-red-500"
-                },
-                purple: {
-                    bg: "bg-purple-100",
-                    border: "border-purple-500",
-                    text: "text-purple-700",
-                    icon: "text-purple-500"
-                },
-                yellow: {
-                    bg: "bg-yellow-100",
-                    border: "border-yellow-500",
-                    text: "text-yellow-700",
-                    icon: "text-yellow-500"
-                },
-                indigo: {
-                    bg: "bg-indigo-100",
-                    border: "border-indigo-500",
-                    text: "text-indigo-700",
-                    icon: "text-indigo-500"
-                },
-                teal: {
-                    bg: "bg-teal-100",
-                    border: "border-teal-500",
-                    text: "text-teal-700",
-                    icon: "text-teal-500"
-                },
-                orange: {
-                    bg: "bg-orange-100",
-                    border: "border-orange-500",
-                    text: "text-orange-700",
-                    icon: "text-orange-500"
-                },
-                pink: {
-                    bg: "bg-pink-100",
-                    border: "border-pink-500",
-                    text: "text-pink-700",
-                    icon: "text-pink-500"
-                }
-            };
+        <div class="menu-title">
+            <i class="fas fa-chart-line me-1"></i> Financial Tools
+        </div>
+        <a class="nav-link" href="{{ route('networth.form') }}">
+            <i class="fas fa-wallet"></i> Net Worth
+        </a>
+        <a class="nav-link" href="{{ route('currency.form') }}">
+            <i class="fas fa-exchange-alt"></i> Currency Converter
+        </a>
+        <a class="nav-link" href="{{ route('solar.form') }}">
+            <i class="fas fa-solar-panel"></i> Solar ROI
+        </a>
+    </div>
 
-            return colorMap[color] || colorMap.blue;
-        }
+    <!-- Main Content -->
+    <div class="col-md-9 col-xl-10 p-4">
+        <!-- Calculator Description Header -->
+        <div class="calculator-header mb-4">
+            <h4><i class="fas fa-file-invoice-dollar me-2"></i>Income Tax Estimator (US/CA)</h4>
+            <p>Estimate your federal and state/province income tax liability for the United States or Canada based on your filing status, income, and region.</p>
+        </div>
 
-        // Function to create calculator cards and add them to the grid
-        function renderCalculatorCards() {
-            const grid = document.getElementById('calculator-grid');
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('ira.form') }}">
+                    <i class="fas fa-piggy-bank me-1"></i> IRA
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('dti.form') }}">
+                    <i class="fas fa-percentage me-1"></i> DTI
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('solar.form') }}">
+                    <i class="fas fa-solar-panel me-1"></i> Solar ROI
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('networth.form') }}">
+                    <i class="fas fa-wallet me-1"></i> Net Worth
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{{ route('tax.form') }}">
+                    <i class="fas fa-file-invoice-dollar me-1"></i> Tax Estimator
+                </a>
+            </li>
+        </ul>
+
+        <!-- Calculator Form -->
+        <div class="calculator-card">
+            <h5><i class="fas fa-calculator me-2"></i>Tax Estimator Calculator</h5>
             
-            calculators.forEach(calculator => {
-                const colorClasses = getColorClasses(calculator.color);
-                
-                const card = document.createElement('div');
-                card.className = `calculator-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 ${colorClasses.border}`;
-                
-                // Use the route information for the link
-                const routeUrl = calculator.route ? calculator.route : `/${calculator.slug}`;
-                
-                card.innerHTML = `
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="rounded-full ${colorClasses.bg} p-3 mr-4">
-                                <i class="${calculator.icon} ${colorClasses.icon} text-xl"></i>
-                            </div>
-                            <h3 class="text-lg font-bold ${colorClasses.text}">${calculator.name}</h3>
+            <form method="POST" action="{{ route('tax.estimate') }}">
+                @csrf
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="filing_status" class="form-label fw-medium">Filing Status</label>
+                            <select name="filing_status" id="filing_status" class="form-select" required>
+                                <option value="">-- Select Status --</option>
+                                <option value="single" {{ old('filing_status', $filingStatus ?? '') === 'single' ? 'selected' : '' }}>Single</option>
+                                <option value="married" {{ old('filing_status', $filingStatus ?? '') === 'married' ? 'selected' : '' }}>Married Filing Jointly</option>
+                                <option value="head" {{ old('filing_status', $filingStatus ?? '') === 'head' ? 'selected' : '' }}>Head of Household</option>
+                                <option value="separate" {{ old('filing_status', $filingStatus ?? '') === 'separate' ? 'selected' : '' }}>Married Filing Separately</option>
+                            </select>
                         </div>
-                        <p class="text-gray-600 mb-6">${calculator.description}</p>
-                        <a href="${routeUrl}" class="block text-center py-2 px-4 bg-gray-800 hover:bg-gray-700 text-white rounded transition duration-300">
-                            Launch Calculator
-                        </a>
                     </div>
-                `;
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Annual Income ($)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                <input type="number" step="0.01" name="income" class="form-control" required value="{{ old('income', $income ?? '') }}" placeholder="e.g. 75000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
-                grid.appendChild(card);
-            });
-        }
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">State or Province</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                <input type="text" name="region" class="form-control" required value="{{ old('region', $region ?? '') }}" placeholder="e.g. CA, ON">
+                            </div>
+                            <div class="form-text">Enter state code (US) or province code (Canada)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Country</label>
+                            <select name="country" class="form-select" required>
+                                <option value="US" {{ old('country', $country ?? '') === 'US' ? 'selected' : '' }}>United States</option>
+                                <option value="CA" {{ old('country', $country ?? '') === 'CA' ? 'selected' : '' }}>Canada</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-calculator me-2"></i>Estimate Tax
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary ms-2">
+                        <i class="fas fa-redo me-2"></i>Reset
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Results Section (shown conditionally) -->
+            @isset($totalTax)
+            <div class="mt-4 p-4 results-card rounded">
+                <h5 class="mb-3 text-primary"><i class="fas fa-chart-pie me-2"></i>Estimated Tax Summary</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light mb-3">
+                            <div class="card-body">
+                                <h6 class="mb-2">Federal Tax</h6>
+                                <h4 class="mb-0 text-primary">${{ number_format($estimatedFederal, 2) }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light mb-3">
+                            <div class="card-body">
+                                <h6 class="mb-2">State/Province Tax</h6>
+                                <h4 class="mb-0 text-primary">${{ number_format($estimatedState, 2) }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 bg-light mb-3">
+                            <div class="card-body">
+                                <h6 class="mb-2">Total Tax</h6>
+                                <h4 class="mb-0 text-primary">${{ number_format($totalTax, 2) }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-light mt-3 mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    This is an estimate only. Tax rates and brackets may change. Consult with a tax professional for accurate advice.
+                </div>
+            </div>
+            @endisset
+        </div>
+        
+        <div class="mt-4 text-center footer">
+            <p>© {{ date('Y') }} Financial Calculators. All calculations are estimates only.</p>
+        </div>
+    </div>
+</div>
 
-        // Function to fetch calculators from API (for future implementation)
-        function fetchCalculators() {
-            // In a real application, you would fetch this data from your backend
-            // For now, we're using the mock data defined above
-            renderCalculatorCards();
-        }
-
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchCalculators();
-        });
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

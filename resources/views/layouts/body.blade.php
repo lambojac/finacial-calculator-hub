@@ -1,299 +1,49 @@
-
 @extends('layouts.home')
 
 @section('main')
-<div class="financial-calculator-container">
-    <!-- Financial Calculators Section -->
-    <div class="calculator-section py-4">
-        <div class="container">
-            <h2 class="mb-4 border-bottom pb-2">Financial Calculators</h2>
+<div class="calculator-page-container">
+    <div class="container">
+        <!-- Calculator Info Section (where profile pic was) -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="calculator-icon bg-light rounded-circle p-3 me-3">
+                                <i class="bi @yield('calculator-icon') fs-3"></i>
+                            </div>
+                            <div>
+                                <h2 class="mb-1">@yield('calculator-title')</h2>
+                                <p class="text-muted mb-0">@yield('calculator-description')</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator Form and Results -->
+        <div class="row">
+            <!-- Calculator Form -->
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Calculator</h5>
+                    </div>
+                    <div class="card-body">
+                        @yield('calculator-form')
+                    </div>
+                </div>
+            </div>
             
-            <div class="row g-4">
-                <!-- Mortgage Payment -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-house-door text-primary fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Mortgage Payment</h5>
-                            </div>
-                            <p class="card-text text-muted">Show homeowners what their mortgage costs per month.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
+            <!-- Results Section -->
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Results</h5>
                     </div>
-                </div>
-
-                <!-- Mortgage Refinance Savings -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-currency-dollar text-success fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Mortgage Refinance Savings</h5>
-                            </div>
-                            <p class="card-text text-muted">Helps decide if refinancing is worth it.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Auto-Loan Payment -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-car-front text-danger fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Auto-Loan Payment</h5>
-                            </div>
-                            <p class="card-text text-muted">Forecast car loan costs.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Personal-Loan APR -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-percent text-purple fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Personal-Loan APR</h5>
-                            </div>
-                            <p class="card-text text-muted">Reveals effective cost of unsecured loans.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Credit-Card Payoff -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-credit-card text-warning fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Credit-Card Payoff</h5>
-                            </div>
-                            <p class="card-text text-muted">Show timeline to clear credit debt.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Compound-Interest -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-graph-up-arrow text-info fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Compound-Interest</h5>
-                            </div>
-                            <p class="card-text text-muted">Visualize investment growth.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 401k Retirement Gap -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-piggy-bank text-dark fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">401k Retirement Gap</h5>
-                            </div>
-                            <p class="card-text text-muted">Shows if savings meet retirement goal.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Salary — Hourly -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-clock text-secondary fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Salary — Hourly</h5>
-                            </div>
-                            <p class="card-text text-muted">Convert pay formats with deductions.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Income-Tax Estimator -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-file-earmark-text text-pink fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Income-Tax Estimator (US/CA)</h5>
-                            </div>
-                            <p class="card-text text-muted">Quick federal + state income tax preview.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Auto-Insurance Premium -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-shield-check text-info fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Auto-Insurance Premium</h5>
-                            </div>
-                            <p class="card-text text-muted">Rough quote for car insurance.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Life-Insurance Needs -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-heart text-danger fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Life-Insurance Needs</h5>
-                            </div>
-                            <p class="card-text text-muted">Calculates optimal life policy size.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- HSA vs PPO Break-Even -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-hospital text-success fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">HSA vs PPO Break-Even</h5>
-                            </div>
-                            <p class="card-text text-muted">Decide between health plans.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Student-Loan Refinance -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-mortarboard text-primary fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Student-Loan Refinance</h5>
-                            </div>
-                            <p class="card-text text-muted">Check benefit of refinancing student debt.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Home Affordability -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-house text-info fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Home Affordability</h5>
-                            </div>
-                            <p class="card-text text-muted">Shows buyers their budget ceiling.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Rent vs Buy -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-houses text-warning fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Rent vs Buy</h5>
-                            </div>
-                            <p class="card-text text-muted">Compare renting to owning.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Live Currency Converter -->
-                <div class="col-md-3">
-                    <div class="card h-100 calculator-card border">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="calculator-icon bg-light rounded-circle p-2 me-2">
-                                    <i class="bi bi-currency-exchange text-primary fs-5"></i>
-                                </div>
-                                <h5 class="card-title mb-0">Live Currency Converter</h5>
-                            </div>
-                            <p class="card-text text-muted">Real-time FX via open API.</p>
-                        </div>
-                        <div class="card-footer bg-white border-0 pb-3">
-                            <a href="#" class="btn btn-dark w-100">Launch Calculator</a>
-                        </div>
+                    <div class="card-body" id="calculator-results">
+                        @yield('calculator-results')
                     </div>
                 </div>
             </div>
@@ -304,8 +54,12 @@
 
 @push('styles')
 <style>
-    .bg-primary {
-        background-color: #3751ff !important;
+    .calculator-icon {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .text-purple {
@@ -316,29 +70,68 @@
         color: #FF66B2;
     }
     
-    .calculator-card {
-        transition: all 0.3s ease;
+    .text-orange {
+        color: #FF9940;
     }
     
-    .calculator-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    /* Additional styles for calculator inputs */
+    .form-control:focus {
+        border-color: #3751ff;
+        box-shadow: 0 0 0 0.25rem rgba(55, 81, 255, 0.25);
     }
     
-    .calculator-icon {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .btn-primary {
+        background-color: #3751ff;
+        border-color: #3751ff;
     }
     
-    .btn-dark {
-        background-color: #1e2430;
+    .btn-primary:hover {
+        background-color: #2a41dd;
+        border-color: #2a41dd;
     }
     
-    .btn-dark:hover {
-        background-color: #2c3446;
+    /* Range slider styling */
+    .range-slider {
+        width: 100%;
+    }
+    
+    /* Result styling */
+    .result-highlight {
+        font-size: 24px;
+        font-weight: bold;
+        color: #3751ff;
+    }
+    
+    .result-card {
+        border-left: 4px solid #3751ff;
     }
 </style>
 @endpush
+
+@push('scripts')
+<script>
+    // Common calculator functions can go here
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+    }
+    
+    function formatNumber(number, decimals = 0) {
+        return new Intl.NumberFormat('en-US', { 
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals 
+        }).format(number);
+    }
+    
+    function formatPercent(number, decimals = 2) {
+        return new Intl.NumberFormat('en-US', { 
+            style: 'percent',
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals 
+        }).format(number/100);
+    }
+    
+    // Custom scripts from specific calculators
+    @yield('calculator-scripts')
+</script>
+@endpush
+
